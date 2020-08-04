@@ -1,0 +1,457 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="HotelAppModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Engagement">
+          <Key>
+            <PropertyRef Name="EngagementId" />
+          </Key>
+          <Property Name="EngagementId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" MaxLength="100" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Gender">
+          <Key>
+            <PropertyRef Name="GenderId" />
+          </Key>
+          <Property Name="GenderId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" MaxLength="100" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Menager">
+          <Key>
+            <PropertyRef Name="MenagerId" />
+          </Key>
+          <Property Name="MenagerId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="UserId" Type="int" Nullable="false" />
+          <Property Name="HotelFloor" Type="int" Nullable="false" />
+          <Property Name="Experience" Type="int" Nullable="false" />
+          <Property Name="QualificationLevelId" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="QualificationLevel">
+          <Key>
+            <PropertyRef Name="QualificationLevelId" />
+          </Key>
+          <Property Name="QualificationLevelId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" MaxLength="3" Nullable="false" />
+        </EntityType>
+        <EntityType Name="RoleUser">
+          <Key>
+            <PropertyRef Name="RoleId" />
+          </Key>
+          <Property Name="RoleId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" MaxLength="100" Nullable="false" />
+        </EntityType>
+        <EntityType Name="UserHotel">
+          <Key>
+            <PropertyRef Name="UserId" />
+          </Key>
+          <Property Name="UserId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="FullName" Type="nvarchar" MaxLength="100" Nullable="false" />
+          <Property Name="DateOfBirt" Type="datetime" Nullable="false" />
+          <Property Name="Email" Type="nvarchar" MaxLength="100" Nullable="false" />
+          <Property Name="UserName" Type="nvarchar" MaxLength="100" Nullable="false" />
+          <Property Name="UserPassword" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="RoleId" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Worker">
+          <Key>
+            <PropertyRef Name="WorkerId" />
+          </Key>
+          <Property Name="WorkerId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="UserId" Type="int" Nullable="false" />
+          <Property Name="HotelFloor" Type="int" Nullable="false" />
+          <Property Name="GenderId" Type="int" Nullable="false" />
+          <Property Name="Citizenship" Type="nvarchar" MaxLength="100" Nullable="false" />
+          <Property Name="EngagementId" Type="int" Nullable="false" />
+          <Property Name="Salary" Type="money" />
+        </EntityType>
+        <Association Name="FK__Menager__Qualifi__4222D4EF">
+          <End Role="QualificationLevel" Type="Self.QualificationLevel" Multiplicity="1" />
+          <End Role="Menager" Type="Self.Menager" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="QualificationLevel">
+              <PropertyRef Name="QualificationLevelId" />
+            </Principal>
+            <Dependent Role="Menager">
+              <PropertyRef Name="QualificationLevelId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Menager__UserId__412EB0B6">
+          <End Role="UserHotel" Type="Self.UserHotel" Multiplicity="1" />
+          <End Role="Menager" Type="Self.Menager" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="UserHotel">
+              <PropertyRef Name="UserId" />
+            </Principal>
+            <Dependent Role="Menager">
+              <PropertyRef Name="UserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__UserHotel__RoleI__3E52440B">
+          <End Role="RoleUser" Type="Self.RoleUser" Multiplicity="1" />
+          <End Role="UserHotel" Type="Self.UserHotel" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="RoleUser">
+              <PropertyRef Name="RoleId" />
+            </Principal>
+            <Dependent Role="UserHotel">
+              <PropertyRef Name="RoleId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Worker__Engageme__46E78A0C">
+          <End Role="Engagement" Type="Self.Engagement" Multiplicity="1" />
+          <End Role="Worker" Type="Self.Worker" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Engagement">
+              <PropertyRef Name="EngagementId" />
+            </Principal>
+            <Dependent Role="Worker">
+              <PropertyRef Name="EngagementId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Worker__GenderId__45F365D3">
+          <End Role="Gender" Type="Self.Gender" Multiplicity="1" />
+          <End Role="Worker" Type="Self.Worker" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Gender">
+              <PropertyRef Name="GenderId" />
+            </Principal>
+            <Dependent Role="Worker">
+              <PropertyRef Name="GenderId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Worker__UserId__44FF419A">
+          <End Role="UserHotel" Type="Self.UserHotel" Multiplicity="1" />
+          <End Role="Worker" Type="Self.Worker" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="UserHotel">
+              <PropertyRef Name="UserId" />
+            </Principal>
+            <Dependent Role="Worker">
+              <PropertyRef Name="UserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="HotelAppModelStoreContainer">
+          <EntitySet Name="Engagement" EntityType="Self.Engagement" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Gender" EntityType="Self.Gender" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Menager" EntityType="Self.Menager" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="QualificationLevel" EntityType="Self.QualificationLevel" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="RoleUser" EntityType="Self.RoleUser" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="UserHotel" EntityType="Self.UserHotel" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Worker" EntityType="Self.Worker" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK__Menager__Qualifi__4222D4EF" Association="Self.FK__Menager__Qualifi__4222D4EF">
+            <End Role="QualificationLevel" EntitySet="QualificationLevel" />
+            <End Role="Menager" EntitySet="Menager" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Menager__UserId__412EB0B6" Association="Self.FK__Menager__UserId__412EB0B6">
+            <End Role="UserHotel" EntitySet="UserHotel" />
+            <End Role="Menager" EntitySet="Menager" />
+          </AssociationSet>
+          <AssociationSet Name="FK__UserHotel__RoleI__3E52440B" Association="Self.FK__UserHotel__RoleI__3E52440B">
+            <End Role="RoleUser" EntitySet="RoleUser" />
+            <End Role="UserHotel" EntitySet="UserHotel" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Worker__Engageme__46E78A0C" Association="Self.FK__Worker__Engageme__46E78A0C">
+            <End Role="Engagement" EntitySet="Engagement" />
+            <End Role="Worker" EntitySet="Worker" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Worker__GenderId__45F365D3" Association="Self.FK__Worker__GenderId__45F365D3">
+            <End Role="Gender" EntitySet="Gender" />
+            <End Role="Worker" EntitySet="Worker" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Worker__UserId__44FF419A" Association="Self.FK__Worker__UserId__44FF419A">
+            <End Role="UserHotel" EntitySet="UserHotel" />
+            <End Role="Worker" EntitySet="Worker" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="HotelAppModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="Engagement">
+          <Key>
+            <PropertyRef Name="EngagementId" />
+          </Key>
+          <Property Name="EngagementId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="Workers" Relationship="Self.FK__Worker__Engageme__46E78A0C" FromRole="Engagement" ToRole="Worker" />
+        </EntityType>
+        <EntityType Name="Gender">
+          <Key>
+            <PropertyRef Name="GenderId" />
+          </Key>
+          <Property Name="GenderId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="Workers" Relationship="Self.FK__Worker__GenderId__45F365D3" FromRole="Gender" ToRole="Worker" />
+        </EntityType>
+        <EntityType Name="Menager">
+          <Key>
+            <PropertyRef Name="MenagerId" />
+          </Key>
+          <Property Name="MenagerId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="UserId" Type="Int32" Nullable="false" />
+          <Property Name="HotelFloor" Type="Int32" Nullable="false" />
+          <Property Name="Experience" Type="Int32" Nullable="false" />
+          <Property Name="QualificationLevelId" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="QualificationLevel" Relationship="Self.FK__Menager__Qualifi__4222D4EF" FromRole="Menager" ToRole="QualificationLevel" />
+          <NavigationProperty Name="UserHotel" Relationship="Self.FK__Menager__UserId__412EB0B6" FromRole="Menager" ToRole="UserHotel" />
+        </EntityType>
+        <EntityType Name="QualificationLevel">
+          <Key>
+            <PropertyRef Name="QualificationLevelId" />
+          </Key>
+          <Property Name="QualificationLevelId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" MaxLength="3" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="Menagers" Relationship="Self.FK__Menager__Qualifi__4222D4EF" FromRole="QualificationLevel" ToRole="Menager" />
+        </EntityType>
+        <EntityType Name="RoleUser">
+          <Key>
+            <PropertyRef Name="RoleId" />
+          </Key>
+          <Property Name="RoleId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="UserHotels" Relationship="Self.FK__UserHotel__RoleI__3E52440B" FromRole="RoleUser" ToRole="UserHotel" />
+        </EntityType>
+        <EntityType Name="UserHotel">
+          <Key>
+            <PropertyRef Name="UserId" />
+          </Key>
+          <Property Name="UserId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="FullName" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="DateOfBirt" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="Email" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="UserName" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="UserPassword" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="RoleId" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Menagers" Relationship="Self.FK__Menager__UserId__412EB0B6" FromRole="UserHotel" ToRole="Menager" />
+          <NavigationProperty Name="RoleUser" Relationship="Self.FK__UserHotel__RoleI__3E52440B" FromRole="UserHotel" ToRole="RoleUser" />
+          <NavigationProperty Name="Workers" Relationship="Self.FK__Worker__UserId__44FF419A" FromRole="UserHotel" ToRole="Worker" />
+        </EntityType>
+        <EntityType Name="Worker">
+          <Key>
+            <PropertyRef Name="WorkerId" />
+          </Key>
+          <Property Name="WorkerId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="UserId" Type="Int32" Nullable="false" />
+          <Property Name="HotelFloor" Type="Int32" Nullable="false" />
+          <Property Name="GenderId" Type="Int32" Nullable="false" />
+          <Property Name="Citizenship" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="EngagementId" Type="Int32" Nullable="false" />
+          <Property Name="Salary" Type="Decimal" Precision="19" Scale="4" />
+          <NavigationProperty Name="Engagement" Relationship="Self.FK__Worker__Engageme__46E78A0C" FromRole="Worker" ToRole="Engagement" />
+          <NavigationProperty Name="Gender" Relationship="Self.FK__Worker__GenderId__45F365D3" FromRole="Worker" ToRole="Gender" />
+          <NavigationProperty Name="UserHotel" Relationship="Self.FK__Worker__UserId__44FF419A" FromRole="Worker" ToRole="UserHotel" />
+        </EntityType>
+        <Association Name="FK__Worker__Engageme__46E78A0C">
+          <End Role="Engagement" Type="Self.Engagement" Multiplicity="1" />
+          <End Role="Worker" Type="Self.Worker" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Engagement">
+              <PropertyRef Name="EngagementId" />
+            </Principal>
+            <Dependent Role="Worker">
+              <PropertyRef Name="EngagementId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Worker__GenderId__45F365D3">
+          <End Role="Gender" Type="Self.Gender" Multiplicity="1" />
+          <End Role="Worker" Type="Self.Worker" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Gender">
+              <PropertyRef Name="GenderId" />
+            </Principal>
+            <Dependent Role="Worker">
+              <PropertyRef Name="GenderId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Menager__Qualifi__4222D4EF">
+          <End Role="QualificationLevel" Type="Self.QualificationLevel" Multiplicity="1" />
+          <End Role="Menager" Type="Self.Menager" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="QualificationLevel">
+              <PropertyRef Name="QualificationLevelId" />
+            </Principal>
+            <Dependent Role="Menager">
+              <PropertyRef Name="QualificationLevelId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Menager__UserId__412EB0B6">
+          <End Role="UserHotel" Type="Self.UserHotel" Multiplicity="1" />
+          <End Role="Menager" Type="Self.Menager" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="UserHotel">
+              <PropertyRef Name="UserId" />
+            </Principal>
+            <Dependent Role="Menager">
+              <PropertyRef Name="UserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__UserHotel__RoleI__3E52440B">
+          <End Role="RoleUser" Type="Self.RoleUser" Multiplicity="1" />
+          <End Role="UserHotel" Type="Self.UserHotel" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="RoleUser">
+              <PropertyRef Name="RoleId" />
+            </Principal>
+            <Dependent Role="UserHotel">
+              <PropertyRef Name="RoleId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Worker__UserId__44FF419A">
+          <End Role="UserHotel" Type="Self.UserHotel" Multiplicity="1" />
+          <End Role="Worker" Type="Self.Worker" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="UserHotel">
+              <PropertyRef Name="UserId" />
+            </Principal>
+            <Dependent Role="Worker">
+              <PropertyRef Name="UserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="HotelAppEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Engagements" EntityType="Self.Engagement" />
+          <EntitySet Name="Genders" EntityType="Self.Gender" />
+          <EntitySet Name="Menagers" EntityType="Self.Menager" />
+          <EntitySet Name="QualificationLevels" EntityType="Self.QualificationLevel" />
+          <EntitySet Name="RoleUsers" EntityType="Self.RoleUser" />
+          <EntitySet Name="UserHotels" EntityType="Self.UserHotel" />
+          <EntitySet Name="Workers" EntityType="Self.Worker" />
+          <AssociationSet Name="FK__Worker__Engageme__46E78A0C" Association="Self.FK__Worker__Engageme__46E78A0C">
+            <End Role="Engagement" EntitySet="Engagements" />
+            <End Role="Worker" EntitySet="Workers" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Worker__GenderId__45F365D3" Association="Self.FK__Worker__GenderId__45F365D3">
+            <End Role="Gender" EntitySet="Genders" />
+            <End Role="Worker" EntitySet="Workers" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Menager__Qualifi__4222D4EF" Association="Self.FK__Menager__Qualifi__4222D4EF">
+            <End Role="QualificationLevel" EntitySet="QualificationLevels" />
+            <End Role="Menager" EntitySet="Menagers" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Menager__UserId__412EB0B6" Association="Self.FK__Menager__UserId__412EB0B6">
+            <End Role="UserHotel" EntitySet="UserHotels" />
+            <End Role="Menager" EntitySet="Menagers" />
+          </AssociationSet>
+          <AssociationSet Name="FK__UserHotel__RoleI__3E52440B" Association="Self.FK__UserHotel__RoleI__3E52440B">
+            <End Role="RoleUser" EntitySet="RoleUsers" />
+            <End Role="UserHotel" EntitySet="UserHotels" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Worker__UserId__44FF419A" Association="Self.FK__Worker__UserId__44FF419A">
+            <End Role="UserHotel" EntitySet="UserHotels" />
+            <End Role="Worker" EntitySet="Workers" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="HotelAppModelStoreContainer" CdmEntityContainer="HotelAppEntities">
+          <EntitySetMapping Name="Engagements">
+            <EntityTypeMapping TypeName="HotelAppModel.Engagement">
+              <MappingFragment StoreEntitySet="Engagement">
+                <ScalarProperty Name="EngagementId" ColumnName="EngagementId" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Genders">
+            <EntityTypeMapping TypeName="HotelAppModel.Gender">
+              <MappingFragment StoreEntitySet="Gender">
+                <ScalarProperty Name="GenderId" ColumnName="GenderId" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Menagers">
+            <EntityTypeMapping TypeName="HotelAppModel.Menager">
+              <MappingFragment StoreEntitySet="Menager">
+                <ScalarProperty Name="MenagerId" ColumnName="MenagerId" />
+                <ScalarProperty Name="UserId" ColumnName="UserId" />
+                <ScalarProperty Name="HotelFloor" ColumnName="HotelFloor" />
+                <ScalarProperty Name="Experience" ColumnName="Experience" />
+                <ScalarProperty Name="QualificationLevelId" ColumnName="QualificationLevelId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="QualificationLevels">
+            <EntityTypeMapping TypeName="HotelAppModel.QualificationLevel">
+              <MappingFragment StoreEntitySet="QualificationLevel">
+                <ScalarProperty Name="QualificationLevelId" ColumnName="QualificationLevelId" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="RoleUsers">
+            <EntityTypeMapping TypeName="HotelAppModel.RoleUser">
+              <MappingFragment StoreEntitySet="RoleUser">
+                <ScalarProperty Name="RoleId" ColumnName="RoleId" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="UserHotels">
+            <EntityTypeMapping TypeName="HotelAppModel.UserHotel">
+              <MappingFragment StoreEntitySet="UserHotel">
+                <ScalarProperty Name="UserId" ColumnName="UserId" />
+                <ScalarProperty Name="FullName" ColumnName="FullName" />
+                <ScalarProperty Name="DateOfBirt" ColumnName="DateOfBirt" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="UserName" ColumnName="UserName" />
+                <ScalarProperty Name="UserPassword" ColumnName="UserPassword" />
+                <ScalarProperty Name="RoleId" ColumnName="RoleId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Workers">
+            <EntityTypeMapping TypeName="HotelAppModel.Worker">
+              <MappingFragment StoreEntitySet="Worker">
+                <ScalarProperty Name="WorkerId" ColumnName="WorkerId" />
+                <ScalarProperty Name="UserId" ColumnName="UserId" />
+                <ScalarProperty Name="HotelFloor" ColumnName="HotelFloor" />
+                <ScalarProperty Name="GenderId" ColumnName="GenderId" />
+                <ScalarProperty Name="Citizenship" ColumnName="Citizenship" />
+                <ScalarProperty Name="EngagementId" ColumnName="EngagementId" />
+                <ScalarProperty Name="Salary" ColumnName="Salary" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

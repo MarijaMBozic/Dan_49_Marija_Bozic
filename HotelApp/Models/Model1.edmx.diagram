@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="46dfcad4e91a43c4a5cbf2379961bb20" Name="Diagram1">
+        <EntityTypeShape EntityType="HotelAppModel.Engagement" Width="1.5" PointX="6" PointY="1.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="HotelAppModel.Gender" Width="1.5" PointX="6" PointY="7.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="HotelAppModel.Menager" Width="1.5" PointX="5.25" PointY="4.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="HotelAppModel.QualificationLevel" Width="1.5" PointX="3" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="HotelAppModel.RoleUser" Width="1.5" PointX="0.75" PointY="4.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="HotelAppModel.UserHotel" Width="1.5" PointX="3" PointY="4.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="HotelAppModel.Worker" Width="1.5" PointX="8.25" PointY="4.125" IsExpanded="true" />
+        <AssociationConnector Association="HotelAppModel.FK__Worker__Engageme__46E78A0C" ManuallyRouted="false" />
+        <AssociationConnector Association="HotelAppModel.FK__Worker__GenderId__45F365D3" ManuallyRouted="false" />
+        <AssociationConnector Association="HotelAppModel.FK__Menager__Qualifi__4222D4EF" ManuallyRouted="false" />
+        <AssociationConnector Association="HotelAppModel.FK__Menager__UserId__412EB0B6" ManuallyRouted="false" />
+        <AssociationConnector Association="HotelAppModel.FK__UserHotel__RoleI__3E52440B" ManuallyRouted="false" />
+        <AssociationConnector Association="HotelAppModel.FK__Worker__UserId__44FF419A" ManuallyRouted="false" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>
